@@ -6,4 +6,3 @@ Includes user sign-in with **Next-Auth**, **anonymous shopping carts**, **Prisma
 
 Learn how to build this project: https://www.youtube.com/watch?v=AaiijESQH5o
 
-![thumbnail](https://github.com/codinginflow/nextjs-ecommerce/assets/52977034/7367010c-abc3-4e11-acdf-03b98f7f0f70)
