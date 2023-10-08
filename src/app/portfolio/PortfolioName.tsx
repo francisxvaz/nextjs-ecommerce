@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useTransition } from "react";
 import { TiTickOutline, TiPencil } from "react-icons/ti";
 import { RxCross2 } from "react-icons/rx";
 import { changeName } from "./actions";
@@ -7,16 +7,17 @@ import { changeName } from "./actions";
 function PortfolioName({ id, name }: { id: string; name: string }) {
   const [updatedName, setUpdatedName] = useState(name);
   const [isEditing, setIsEditing] = useState(false);
+  const [isPending, startTransition] = useTransition();
 
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUpdatedName(e.target.value);
   };
 
-  const saveName = async () => {
-    const success = await changeName(id, updatedName);
-    if (success) {
-      setIsEditing(false);
-    }
+  const saveName = () => {
+    startTransition(async () => {
+      changeName(id, updatedName);
+    });
+    if (!isPending) setIsEditing(false);
   };
 
   return (
@@ -39,9 +40,12 @@ function PortfolioName({ id, name }: { id: string; name: string }) {
             value={updatedName}
             onChange={handleNameChange}
           />
-          <TiTickOutline className="cursor-pointer" onClick={saveName}/>
-          <RxCross2 className="cursor-pointer" onClick={() => setIsEditing(false)}/>
-          
+          {isPending && <span className="loading loading-spinner loading-sm" />}
+          <TiTickOutline className="cursor-pointer" onClick={saveName} />
+          <RxCross2
+            className="cursor-pointer"
+            onClick={() => setIsEditing(false)}
+          />
         </div>
       )}
     </div>
