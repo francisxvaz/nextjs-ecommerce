@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
-import { TiTickOutline } from "react-icons/ti";
+import { TiTickOutline, TiPencil } from "react-icons/ti";
+import { RxCross2 } from "react-icons/rx";
 import { changeName } from "./actions";
 
 function PortfolioName({ id, name }: { id: string; name: string }) {
@@ -11,25 +12,37 @@ function PortfolioName({ id, name }: { id: string; name: string }) {
     setUpdatedName(e.target.value);
   };
 
-  const saveName = () => {
-    changeName(id, updatedName);
-    setIsEditing(false)
+  const saveName = async () => {
+    const success = await changeName(id, updatedName);
+    if (success) {
+      setIsEditing(false);
+    }
   };
 
   return (
     <div>
-      {!isEditing && <span onClick={() => setIsEditing(true)}>{name}</span>}
+      {!isEditing && (
+        <div className="flex items-center gap-2">
+          <span>{updatedName}</span>
+          <TiPencil
+            className="h-5 w-5 cursor-pointer"
+            onClick={() => setIsEditing(true)}
+          />
+        </div>
+      )}
       {isEditing && (
-        <>
+        <div className="flex gap-4">
           <input
             type="text"
+            className="text-base"
             name="pName"
             value={updatedName}
             onChange={handleNameChange}
           />
-          <button onClick={saveName}>save</button>
-          <button onClick={() => setIsEditing(false)}>cancel</button>
-        </>
+          <TiTickOutline className="cursor-pointer" onClick={saveName}/>
+          <RxCross2 className="cursor-pointer" onClick={() => setIsEditing(false)}/>
+          
+        </div>
       )}
     </div>
   );
