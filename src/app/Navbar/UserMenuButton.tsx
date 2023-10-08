@@ -4,6 +4,7 @@ import profilePicPlaceholder from "@/assets/profile-pic-placeholder.png";
 import { Session } from "next-auth";
 import { signIn, signOut } from "next-auth/react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 interface UserMenuButtonProps {
   session: Session | null;
@@ -11,7 +12,7 @@ interface UserMenuButtonProps {
 
 export default function UserMenuButton({ session }: UserMenuButtonProps) {
   const user = session?.user;
-
+  const router = useRouter();
   return (
     <div className="dropdown-end dropdown">
       <label tabIndex={0} className="btn-ghost btn-circle btn">
@@ -51,6 +52,13 @@ export default function UserMenuButton({ session }: UserMenuButtonProps) {
           ) : (
             <button onClick={() => signIn()}>Sign In</button>
           )}
+        </li>
+        <li>
+          {
+            user ?
+            <button onClick={() => router.push('/portfolio')}>Portfolios</button>: null
+            
+          }
         </li>
       </ul>
     </div>

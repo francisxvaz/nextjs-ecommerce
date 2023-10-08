@@ -21,7 +21,7 @@ export default async function Home({
   const totalPages = Math.ceil((totalItemCount - heroItemCount) / pageSize);
 
   const products = await prisma.product.findMany({
-    orderBy: { id: "desc" },
+    orderBy: { name: "asc" },
     skip:
       (currentPage - 1) * pageSize + (currentPage === 1 ? 0 : heroItemCount),
     take: pageSize + (currentPage === 1 ? heroItemCount : 0),
@@ -54,7 +54,7 @@ export default async function Home({
         </div>
       )}
 
-      <div className="my-4 grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
+      <div className="my-4 grid grid-cols-2 gap-4 md:grid-cols-5 xl:grid-cols-5">
         {(currentPage === 1 ? products.slice(1) : products).map((product) => (
           <ProductCard product={product} key={product.id} />
         ))}

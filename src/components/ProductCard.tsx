@@ -27,10 +27,13 @@ export default function ProductCard({ product }: ProductCardProps) {
         />
       </figure>
       <div className="card-body">
-        <h2 className="card-title">{product.name}</h2>
+        <div className="flex items-center">
+          <h2 className="card-title">{product.name}</h2>
+          <PriceTag price={product.price} />
+        </div>
+        
         {isNew && <div className="badge badge-secondary">NEW</div>}
         <p>{product.description}</p>
-        <PriceTag price={product.price} />
       </div>
     </Link>
   );

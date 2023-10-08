@@ -1,7 +1,9 @@
-import { getCart } from "@/lib/db/cart";
+import { ShoppingCart, getCart } from "@/lib/db/cart";
 import { formatPrice } from "@/lib/format";
 import CartEntry from "./CartEntry";
-import { setProductQuantity } from "./actions";
+import { addToPortfolio, setProductQuantity } from "./actions";
+import AddToPortfolioButton from "./AddToPortfolioButton";
+import { revalidatePath } from "next/cache";
 
 export const metadata = {
   title: "Your Cart - Flowmazon",
@@ -9,6 +11,12 @@ export const metadata = {
 
 export default async function CartPage() {
   const cart = await getCart();
+
+  const addCartToPortfolio = async (cart: ShoppingCart) => {
+    "use server"
+    await addToPortfolio(cart)
+    revalidatePath("/cart")
+  }
 
   return (
     <div>
@@ -25,7 +33,7 @@ export default async function CartPage() {
         <p className="mb-3 font-bold">
           Total: {formatPrice(cart?.subtotal || 0)}
         </p>
-        <button className="btn-primary btn sm:w-[200px]">Checkout</button>
+        <AddToPortfolioButton cart={cart} addCartToPortfolio={addCartToPortfolio} />
       </div>
     </div>
   );
