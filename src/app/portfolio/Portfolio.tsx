@@ -8,11 +8,11 @@ function Portfolio({ portfolio }: { portfolio: PortfolioWithItems }) {
       <div>{portfolio.name}</div>
       {portfolio.portfolioItems.map((item) => {
         return (
-          <>
+          <div key={item.id}>
             <div>{item.productId}</div>
             <div>{formatPrice(item.price)}</div>
             <div>{item.quantity}</div>
-          </>
+          </div>
         );
       })}
     </>
