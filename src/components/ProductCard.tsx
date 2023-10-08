@@ -2,8 +2,6 @@ import { Product } from "@prisma/client";
 import Link from "next/link";
 import PriceTag from "./PriceTag";
 import Image from "next/image";
-import yahooImage from "@/assets/finance-site/yahoo.png"
-import tiprankImage from "@/assets/finance-site/tiprank.png"
 
 interface ProductCardProps {
   product: Product;
