@@ -1,17 +1,21 @@
 import { prisma } from '@/lib/db/prisma'
 import React from 'react'
 import Portfolio from './Portfolio';
-import { Prisma } from '@prisma/client';
+import { Prisma, Product } from '@prisma/client';
+
+export type PortfolioItemProduct = Prisma.PortfolioItemGetPayload<{
+  include: { product: true };
+}>;
 
 export type PortfolioWithItems = Prisma.PortfolioGetPayload<{
-    include: { portfolioItems: true };
+    include: { portfolioItems: { include: {product: true} }};
   }>;
 
 export default async function PortfoliosPage() {
   let portfolios: PortfolioWithItems[] | null = null;  
 
   portfolios = await prisma.portfolio.findMany(
-    {include: { portfolioItems: true} } 
+    {include: { portfolioItems: {include: {product: true}}} } 
   ) ;
 
   return portfolios.map(portfolio => {
