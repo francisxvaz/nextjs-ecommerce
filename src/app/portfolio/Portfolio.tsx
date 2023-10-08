@@ -32,6 +32,7 @@ function Portfolio({ portfolio }: { portfolio: PortfolioWithItems }) {
               <div>buy price : {formatPrice(item.price)}</div>
               <div>quantity : {item.quantity}</div>
               <div>current price : {formatPrice(item.product.price)}({percentageDifference(item.price, item.product.price)}%)</div>
+              <a href={`https://trading.hellostake.com/us-equity/${item.product.name}`} target="_blank" className="btn btn-primary">Buy on Stake</a>
             </div>
           </div>
         );
