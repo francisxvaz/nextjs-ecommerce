@@ -15,7 +15,9 @@ export default async function PortfoliosPage() {
   ) ;
 
   return portfolios.map(portfolio => {
-    return <Portfolio portfolio={portfolio} />
+    return <div  key={portfolio.id}>
+            <Portfolio portfolio={portfolio} />
+        </div>
   })
   
 }
