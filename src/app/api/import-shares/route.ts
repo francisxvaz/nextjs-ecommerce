@@ -1,9 +1,10 @@
+import { NextApiResponse } from "next";
 import { PrismaClient } from "@prisma/client";
-import type { NextApiResponse } from "next";
 const prisma = new PrismaClient();
 import data from '../.././../../data/latest-shares.json'
+import { NextRequest } from "next/server";
 
-export async function GET(res: NextApiResponse) {
+export async function GET(req: NextRequest, res: NextApiResponse) {
   try {
     data.map(async (share) => {
         const name = share.name;
@@ -16,7 +17,7 @@ export async function GET(res: NextApiResponse) {
     res.status(500).end("Internal Server Error");
   }
 
-  async function updateProductPrice(name, newPrice) {
+  async function updateProductPrice(name: string, newPrice: number) {
     try {
       // Find the product
       const product = await prisma.product.findFirst({

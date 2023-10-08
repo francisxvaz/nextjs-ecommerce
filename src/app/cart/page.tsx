@@ -12,7 +12,7 @@ export const metadata = {
 export default async function CartPage() {
   const cart = await getCart();
 
-  const addCartToPortfolio = async (cart: ShoppingCart) => {
+  const addCartToPortfolio = async (cart: ShoppingCart | null) => {
     "use server"
     await addToPortfolio(cart)
     revalidatePath("/cart")
