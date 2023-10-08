@@ -2,6 +2,8 @@ import { Product } from "@prisma/client";
 import Link from "next/link";
 import PriceTag from "./PriceTag";
 import Image from "next/image";
+import yahooImage from "@/assets/finance-site/yahoo.png"
+import tiprankImage from "@/assets/finance-site/tiprank.png"
 
 interface ProductCardProps {
   product: Product;
@@ -13,9 +15,10 @@ export default function ProductCard({ product }: ProductCardProps) {
     1000 * 60 * 60 * 24 * 7;
 
   return (
+    <div className="card w-full bg-base-100 transition-shadow hover:shadow-xl">
     <Link
       href={"/products/" + product.id}
-      className="card w-full bg-base-100 transition-shadow hover:shadow-xl"
+      
     >
       <figure>
         <Image
@@ -25,7 +28,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           height={400}
           className="h-48 object-cover"
         />
-      </figure>
+      </figure></Link>
       <div className="card-body">
         <div className="flex items-center">
           <h2 className="card-title">{product.name}</h2>
@@ -34,7 +37,34 @@ export default function ProductCard({ product }: ProductCardProps) {
         
         {isNew && <div className="badge badge-secondary">NEW</div>}
         <p>{product.description}</p>
+        <p className="flex gap-4">
+        <Link
+              href={`https://finance.yahoo.com/quote/${product.name}`}
+              target="_blank"
+            >
+              <Image
+                className="rounded-full"
+                src={yahooImage}
+                alt="fin"
+                width={30}
+                height={30}
+              />
+            </Link>
+            <Link
+              href={`https://www.tipranks.com/stocks/${product.name}`}
+              target="_blank"
+            >
+              <Image
+                src={tiprankImage}
+                alt="fin"
+                width={30}
+                height={30}
+                className="rounded-full"
+              />
+            </Link>
+        </p>
       </div>
-    </Link>
+    
+    </div>
   );
 }
