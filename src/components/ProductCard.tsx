@@ -2,6 +2,8 @@ import { Product } from "@prisma/client";
 import Link from "next/link";
 import PriceTag from "./PriceTag";
 import Image from "next/image";
+import yahooImage from "@/assets/finance-site/yahoo.png"
+import tiprankImage from "@/assets/finance-site/tiprank.png"
 
 interface ProductCardProps {
   product: Product;
@@ -42,7 +44,11 @@ export default function ProductCard({ product }: ProductCardProps) {
             >
               <Image
                 className="rounded-full"
+<<<<<<< HEAD
                 src="/finance-site/yahoo.png"
+=======
+                src={yahooImage}
+>>>>>>> c2d71e551114c6c2f0f438284a39beb5e53aa27a
                 alt="fin"
                 width={30}
                 height={30}
@@ -53,7 +59,11 @@ export default function ProductCard({ product }: ProductCardProps) {
               target="_blank"
             >
               <Image
+<<<<<<< HEAD
                 src="/finance-site/tiprank.png"
+=======
+                src={tiprankImage}
+>>>>>>> c2d71e551114c6c2f0f438284a39beb5e53aa27a
                 alt="fin"
                 width={30}
                 height={30}
