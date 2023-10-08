@@ -2,11 +2,12 @@ import React from "react";
 import { PortfolioWithItems } from "./page";
 import { formatPrice } from "@/lib/format";
 import Image from "next/image";
+import PortfolioName from "./PortfolioName";
 
 function Portfolio({ portfolio }: { portfolio: PortfolioWithItems }) {
   return (
     <>
-      <div className="text-2xl uppercase">{portfolio.name}</div>
+      <div className="text-2xl uppercase"><PortfolioName name={portfolio.name} id={portfolio.id}></PortfolioName></div>
       {portfolio.portfolioItems.map((item) => {
         function percentageDifference(buyPrice: number, currentPrice: number): number {
           const difference = Math.abs(buyPrice - currentPrice);
