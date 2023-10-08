@@ -6,7 +6,7 @@ import AddToPortfolioButton from "./AddToPortfolioButton";
 import { revalidatePath } from "next/cache";
 
 export const metadata = {
-  title: "Your Cart - Flowmazon",
+  title: "Your Cart - EJV Capital",
 };
 
 export default async function CartPage() {

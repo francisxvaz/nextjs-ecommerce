@@ -1,4 +1,4 @@
-import logo from "@/assets/logo.png";
+import logo from "@/assets/logo.svg";
 import { getCart } from "@/lib/db/cart";
 import { getServerSession } from "next-auth";
 import Image from "next/image";
@@ -27,8 +27,8 @@ export default async function Navbar() {
       <div className="navbar m-auto max-w-7xl flex-col gap-2 sm:flex-row">
         <div className="flex-1">
           <Link href="/" className="btn-ghost btn text-xl normal-case">
-            <Image src={logo} height={40} width={40} alt="Flowmazon logo" />
-            Flowmazon
+            <Image src={logo} height={40} width={40} alt="EJV Capital logo" />
+            EJV Capital
           </Link>
         </div>
         <div className="flex-none gap-2">
