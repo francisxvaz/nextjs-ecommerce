@@ -4,3 +4,10 @@ export function formatPrice(price: number) {
     currency: "USD",
   });
 }
+
+export function formatNormalPrice(price: number) {
+  return (price).toLocaleString("en-US", {
+    style: "currency",
+    currency: "USD",
+  });
+}
