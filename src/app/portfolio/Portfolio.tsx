@@ -3,11 +3,15 @@ import { PortfolioWithItems } from "./page";
 import { formatPrice } from "@/lib/format";
 import Image from "next/image";
 import PortfolioName from "./PortfolioName";
+import PortfolioDelete from "./PortfolioDelete";
 
 function Portfolio({ portfolio }: { portfolio: PortfolioWithItems }) {
   return (
     <>
-      <div className="text-2xl uppercase"><PortfolioName name={portfolio.name} id={portfolio.id}></PortfolioName></div>
+      <div className="text-2xl uppercase flex gap-2 items-center">
+        <PortfolioName name={portfolio.name} id={portfolio.id}></PortfolioName>
+        <PortfolioDelete id={portfolio.id}></PortfolioDelete>
+      </div>
       {portfolio.portfolioItems.map((item) => {
         function percentageDifference(buyPrice: number, currentPrice: number): number {
           const difference = Math.abs(buyPrice - currentPrice);

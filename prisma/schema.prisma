@@ -111,7 +111,7 @@ model Portfolio {
 model PortfolioItem {
   id          String    @id @default(auto()) @map("_id") @db.ObjectId
   portfolioId String    @db.ObjectId
-  portfolio   Portfolio @relation(fields: [portfolioId], references: [id], onDelete: Cascade) 
+  portfolio   Portfolio @relation(fields: [portfolioId], references: [id]) 
   productId   String    @db.ObjectId
   product     Product   @relation(fields: [productId], references: [id])
   quantity    Int
