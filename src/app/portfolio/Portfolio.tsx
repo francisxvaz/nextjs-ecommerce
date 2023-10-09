@@ -18,7 +18,7 @@ function Portfolio({ portfolio }: { portfolio: PortfolioWithItems }) {
   let totalBuyPrice = 0;
   let totalCurrentPrice = 0;
   return (
-    <div className="flex justify-between py-3">
+    <div className="grid py-3 md:flex justify-around">
       <div>
         <div className="flex items-center gap-2 text-2xl uppercase">
           <PortfolioName
