@@ -6,11 +6,11 @@ import PortfolioName from "./PortfolioName";
 import PortfolioDelete from "./PortfolioDelete";
 import ChangeTotalAmountForm from "./ChangeTotalAmountForm";
 
-function percentageDifference(buyPrice: number, currentPrice: number): number {
+function percentageDifference(buyPrice: number, currentPrice: number): string {
   const difference = Math.abs(buyPrice - currentPrice);
   const average = (buyPrice + currentPrice) / 2;
-  const percentageDiff = (difference / average) * 100;
-  return percentageDiff;
+  const percentageDiff = ((difference / average) * 100).toFixed(2); // Round to 2 decimal places
+  return percentageDiff + '%';
 }
 
 function Portfolio({ portfolio }: { portfolio: PortfolioWithItems }) {
@@ -50,7 +50,7 @@ function Portfolio({ portfolio }: { portfolio: PortfolioWithItems }) {
                 <div>quantity : {item.quantity}</div>
                 <div>
                   current price : {formatPrice(item.product.price)}(
-                  {percentageDifference(item.price, item.product.price)}%)
+                  {percentageDifference(item.price, item.product.price)})
                 </div>
                 <a
                   href={`https://trading.hellostake.com/us-equity/${item.product.name}`}

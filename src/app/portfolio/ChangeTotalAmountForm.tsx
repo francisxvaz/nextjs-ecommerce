@@ -31,7 +31,7 @@ function ChangeTotalAmountForm({
 
       {portfolio.portfolioItems.map((item) => {
         const sharesThatCanBeBought = Math.floor(
-          divideAmountEqually / (item.product.price / 100)
+          divideAmountEqually / (item.price / 100)
         );
         const amountNow = sharesThatCanBeBought * item.product.price;
         totalAmountNow += amountNow;
