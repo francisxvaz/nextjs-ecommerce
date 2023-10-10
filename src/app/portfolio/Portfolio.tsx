@@ -7,15 +7,21 @@ import PortfolioDelete from "./PortfolioDelete";
 import ChangeTotalAmountForm from "./ChangeTotalAmountForm";
 import FinanceSites from "@/components/FinanceSites";
 
-function percentageDifference(buyPrice: number, currentPrice: number): React.ReactNode {
-  const isNegative = (buyPrice - currentPrice) < 0;
+function percentageDifference(
+  buyPrice: number,
+  currentPrice: number
+): React.ReactNode {
+  const isNegative = buyPrice - currentPrice < 0;
   const difference = Math.abs(buyPrice - currentPrice);
   const average = (buyPrice + currentPrice) / 2;
   const percentageDiff = ((difference / average) * 100).toFixed(2); // Round to 2 decimal places
   const className = isNegative ? "bg-green-400" : "bg-red-400";
 
-  return <span className={`badge text-white text-xs ${className}`}>{percentageDiff}%</span>;
-
+  return (
+    <span className={`badge text-xs text-white ${className}`}>
+      {percentageDiff}%
+    </span>
+  );
 }
 
 function Portfolio({ portfolio }: { portfolio: PortfolioWithItems }) {
@@ -23,7 +29,7 @@ function Portfolio({ portfolio }: { portfolio: PortfolioWithItems }) {
   let totalBuyPrice = 0;
   let totalCurrentPrice = 0;
   return (
-    <div className="grid py-3 md:flex justify-around">
+    <div className="grid justify-around py-3 md:flex">
       <div>
         <div className="flex items-center gap-2 text-2xl uppercase">
           <PortfolioName
@@ -50,7 +56,6 @@ function Portfolio({ portfolio }: { portfolio: PortfolioWithItems }) {
                   />
                 </figure>
                 <FinanceSites name={item.product.name} />
-
               </div>
               <div>
                 <div>buy price : {formatPrice(item.price)}</div>
@@ -71,10 +76,16 @@ function Portfolio({ portfolio }: { portfolio: PortfolioWithItems }) {
           );
         })}
       </div>
-      <div className="bg-slate-100 p-2 rounded-lg">
-        <div>Total Quantity: {totalQuantity} shares</div>
-        <div>Total Buy Price: {formatPrice(totalBuyPrice)}</div>
-        <div>Total Current Price: {formatPrice(totalCurrentPrice)}</div>
+
+      <div className="">
+        <div className="stats bg-primary text-white shadow">
+          <div className="stat">
+            <div className="stat-title">Buy Price: {formatPrice(totalBuyPrice)}</div>
+            <div className="stat-value">{formatPrice(totalCurrentPrice)}</div>
+            <div className="stat-desc">{totalQuantity} shares</div>
+          </div>
+        </div>
+       
         <ChangeTotalAmountForm portfolio={portfolio} />
       </div>
     </div>

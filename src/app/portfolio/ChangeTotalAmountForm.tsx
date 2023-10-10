@@ -12,22 +12,28 @@ function ChangeTotalAmountForm({
   const divideAmountEqually = totalAmount / portfolio.portfolioItems.length;
   let totalAmountNow = 0;
   return (
-    <div className="flex flex-col">
-      <span className="text-xs">
-        suppose I had equally distributed amount of (rounded*)
-      </span>
-      <div>
-        <input
-            type="number"
-            name="totalAmount"
-            value={totalAmount}
-            onChange={(e) => settotalAmount(Number(e.target.value))}
-        />
-        {formatNormalPrice(divideAmountEqually)} /stock
+    <div className="flex flex-col py-4">
+      <div className="stats shadow">
+        <div className="stat">
+          <div className="stat-title">
+            suppose I had equally distributed amount of (rounded*)
+          </div>
+          <div className="stat-value">
+            <input
+              type="number"
+              className="input-bordered input w-full max-w-xs"
+              name="totalAmount"
+              value={totalAmount}
+              onChange={(e) => settotalAmount(Number(e.target.value))}
+            />
+            <div></div>
+            {formatNormalPrice(divideAmountEqually)} /stock
+          </div>
+          
+        </div>
       </div>
-
       
-     
+      <div></div>
 
       {portfolio.portfolioItems.map((item) => {
         const sharesThatCanBeBought = Math.floor(
@@ -37,30 +43,31 @@ function ChangeTotalAmountForm({
         totalAmountNow += amountNow;
         return (
           <>
-            <div className="flex gap-2 py-2">
-              <div className="flex w-full justify-between">
-                <div>
-                <figure>
-                  <Image
-                    src={item.product.imageUrl}
-                    alt={item.product.name}
-                    width={20}
-                    height={20}
-                    className="h-14 w-14"
-                  />
-                </figure>
+            <div className="stats my-2 shadow">
+              <div className="stat">
+                <div className="flex gap-3">
+                  <div className="stat-title">
+                    <figure>
+                      <Image
+                        src={item.product.imageUrl}
+                        alt={item.product.name}
+                        width={20}
+                        height={20}
+                        className="h-10 w-10"
+                      />
+                    </figure>
+                  </div>
+                  <div className="stat-value">{formatPrice(amountNow)}</div>
                 </div>
-                <div>
-                <div><span>shares </span>{sharesThatCanBeBought}</div>
-              <div>Amount Now: {formatPrice(amountNow)}</div>
+                <div className="stat-desc">
+                  quantity : {sharesThatCanBeBought}
                 </div>
-                </div>
-              
+              </div>
             </div>
           </>
         );
-    })}
-    <div>Total Amount : {formatPrice(totalAmountNow)}</div>
+      })}
+      <div>Total Amount : {formatPrice(totalAmountNow)}</div>
     </div>
   );
 }
