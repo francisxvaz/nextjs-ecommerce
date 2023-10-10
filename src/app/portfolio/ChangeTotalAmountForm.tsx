@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { PortfolioWithItems } from "./page";
-import { formatNormalPrice, formatPrice } from "@/lib/format";
+import { formatPriceRounded, formatPrice } from "@/lib/format";
 import Image from "next/image";
 function ChangeTotalAmountForm({
   portfolio,
@@ -15,7 +15,7 @@ function ChangeTotalAmountForm({
     <div className="flex flex-col py-4">
       <div className="stats shadow">
         <div className="stat">
-          <div className="stat-title">
+          <div className="stat-desc">
             suppose I had equally distributed amount of (rounded*)
           </div>
           <div className="stat-value">
@@ -27,7 +27,7 @@ function ChangeTotalAmountForm({
               onChange={(e) => settotalAmount(Number(e.target.value))}
             />
             <div></div>
-            {formatNormalPrice(divideAmountEqually)} /stock
+            {formatPriceRounded(Math.round(divideAmountEqually), false)} /stock
           </div>
           
         </div>
@@ -36,7 +36,7 @@ function ChangeTotalAmountForm({
       <div></div>
 
       {portfolio.portfolioItems.map((item) => {
-        const sharesThatCanBeBought = Math.floor(
+        const sharesThatCanBeBought = Math.round(
           divideAmountEqually / (item.price / 100)
         );
         const amountNow = sharesThatCanBeBought * item.product.price;
@@ -57,7 +57,7 @@ function ChangeTotalAmountForm({
                       />
                     </figure>
                   </div>
-                  <div className="stat-value">{formatPrice(amountNow)}</div>
+                  <div className="stat-value">{formatPriceRounded(amountNow)}</div>
                 </div>
                 <div className="stat-desc">
                   quantity : {sharesThatCanBeBought}
