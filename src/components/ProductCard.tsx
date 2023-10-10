@@ -2,6 +2,7 @@ import { Product } from "@prisma/client";
 import Link from "next/link";
 import PriceTag from "./PriceTag";
 import Image from "next/image";
+import FinanceSites from "./FinanceSites";
 
 interface ProductCardProps {
   product: Product;
@@ -35,31 +36,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         
         {isNew && <div className="badge badge-secondary">NEW</div>}
         <p>{product.description}</p>
-        <p className="flex gap-4">
-        <Link
-              href={`https://finance.yahoo.com/quote/${product.name}`}
-              target="_blank"
-            >
-              <Image
-                className="rounded-full"
-                src="/finance-site/yahoo.png"
-                alt="fin"
-                width={30}
-                height={30}
-              />
-            </Link>
-            <Link
-              href={`https://www.tipranks.com/stocks/${product.name}`}
-              target="_blank"
-            >
-              <Image
-                src="/finance-site/tiprank.png" alt="tiprank"
-                width={30}
-                height={30}
-                className="rounded-full"
-              />
-            </Link>
-        </p>
+        <FinanceSites name={product.name} />
       </div>
     
     </div>

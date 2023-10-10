@@ -5,12 +5,17 @@ import Image from "next/image";
 import PortfolioName from "./PortfolioName";
 import PortfolioDelete from "./PortfolioDelete";
 import ChangeTotalAmountForm from "./ChangeTotalAmountForm";
+import FinanceSites from "@/components/FinanceSites";
 
-function percentageDifference(buyPrice: number, currentPrice: number): string {
+function percentageDifference(buyPrice: number, currentPrice: number): React.ReactNode {
+  const isNegative = (buyPrice - currentPrice) < 0;
   const difference = Math.abs(buyPrice - currentPrice);
   const average = (buyPrice + currentPrice) / 2;
   const percentageDiff = ((difference / average) * 100).toFixed(2); // Round to 2 decimal places
-  return percentageDiff + '%';
+  const className = isNegative ? "bg-green-400" : "bg-red-400";
+
+  return <span className={`badge text-white text-xs ${className}`}>{percentageDiff}%</span>;
+
 }
 
 function Portfolio({ portfolio }: { portfolio: PortfolioWithItems }) {
@@ -44,13 +49,15 @@ function Portfolio({ portfolio }: { portfolio: PortfolioWithItems }) {
                     className="h-40 w-40"
                   />
                 </figure>
+                <FinanceSites name={item.product.name} />
+
               </div>
               <div>
                 <div>buy price : {formatPrice(item.price)}</div>
                 <div>quantity : {item.quantity}</div>
                 <div>
-                  current price : {formatPrice(item.product.price)}(
-                  {percentageDifference(item.price, item.product.price)})
+                  current price : {formatPrice(item.product.price)}
+                  {percentageDifference(item.price, item.product.price)}
                 </div>
                 <a
                   href={`https://trading.hellostake.com/us-equity/${item.product.name}`}
