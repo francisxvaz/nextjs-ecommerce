@@ -57,7 +57,12 @@ export default function UserMenuButton({ session }: UserMenuButtonProps) {
           {
             user ?
             <button onClick={() => router.push('/portfolio')}>Portfolios</button>: null
-            
+          }
+        </li>
+        <li>
+          {
+            user ?
+            <button onClick={() => router.push('/products/live')}>Live</button>: null
           }
         </li>
       </ul>
