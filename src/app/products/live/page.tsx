@@ -4,18 +4,22 @@ import Image from "next/image";
 import { formatPrice } from "@/lib/format";
 import { percentageDifference } from "@/lib/utils";
 import PercentageBadge from "@/components/PercentageBadge";
+import Link from "next/link";
 
 export default async function LiveProductsPage() {
   const products = await getProducts();
   const isLive = false;
   return (
-    <div className="grid w-full grid-cols-4 md:grid-cols-8 gap-2">
+    <div className="grid w-full grid-cols-4 gap-2 md:grid-cols-8">
       {products.map(async (product) => {
-          const currentPrice = isLive
+        const currentPrice = isLive
           ? await getCurrentPrice(product.name, product.price)
           : product.price;
-        
-        const percentageDiff = percentageDifference(product.price, currentPrice);
+
+        const percentageDiff = percentageDifference(
+          product.price,
+          currentPrice
+        );
         return (
           <>
             <div className="stats shadow" key={product.id}>
@@ -24,19 +28,28 @@ export default async function LiveProductsPage() {
                   {formatPrice(product.price)}
                 </div>
                 <div className="stat-value">
-                  <Image
-                    src={`${product.imageUrl}`}
-                    alt="img"
-                    width={30}
-                    height={30}
-                    className="rounded-full"
-                    quality={100}
-                    sizes="(max-width:68px) 20px"
-                  ></Image>
+                  <Link
+                    href={`https://finance.yahoo.com/quote/${product.name}`}
+                    target="_blank"
+                  >
+                    <Image
+                      src={`${product.imageUrl}`}
+                      alt="img"
+                      width={30}
+                      height={30}
+                      className="rounded-full"
+                      quality={100}
+                      sizes="(max-width:68px) 20px"
+                    ></Image>
+                  </Link>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2">
-                  <div className="stat-desc mt-2">{formatPrice(currentPrice)}</div>
-                  <div><PercentageBadge percentageDiff={percentageDiff} /></div>
+                  <div className="stat-desc mt-2">
+                    {formatPrice(currentPrice)}
+                  </div>
+                  <div>
+                    <PercentageBadge percentageDiff={percentageDiff} />
+                  </div>
                 </div>
               </div>
             </div>
