@@ -4,7 +4,7 @@ function PercentageBadge({ percentageDiff }: { percentageDiff: number }) {
   const className = getPercentageColor(percentageDiff)
   return (
     <div className={`badge text-xs text-white ${className}`}>
-      {percentageDiff}%
+      {percentageDiff.toFixed(2)}%
     </div>
   );
 }
