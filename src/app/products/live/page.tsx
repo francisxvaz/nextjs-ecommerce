@@ -8,7 +8,7 @@ import Link from "next/link";
 
 export default async function LiveProductsPage() {
   const products = await getProducts();
-  const isLive = false;
+  const isLive = true;
   return (
     <div className="grid w-full grid-cols-4 gap-2 md:grid-cols-8">
       {products.map(async (product) => {
