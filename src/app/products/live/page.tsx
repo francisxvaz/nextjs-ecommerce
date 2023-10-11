@@ -17,8 +17,8 @@ export default async function LiveProductsPage() {
           : product.price;
 
         const percentageDiff = percentageDifference(
-          product.price,
-          currentPrice
+          
+          currentPrice,product.price
         );
         return (
           <>
