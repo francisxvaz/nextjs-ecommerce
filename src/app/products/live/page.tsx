@@ -9,7 +9,7 @@ export default async function LiveProductsPage() {
   const products = await getProducts();
   const isLive = false;
   return (
-    <div className="grid w-full grid-cols-8 gap-2">
+    <div className="grid w-full grid-cols-4 md:grid-cols-8 gap-2">
       {products.map(async (product) => {
           const currentPrice = isLive
           ? await getCurrentPrice(product.name, product.price)
@@ -34,8 +34,9 @@ export default async function LiveProductsPage() {
                     sizes="(max-width:68px) 20px"
                   ></Image>
                 </div>
-                <div className="stat-desc mt-2">{formatPrice(currentPrice)}
-                <PercentageBadge percentageDiff={percentageDiff} />
+                <div className="grid grid-cols-1 md:grid-cols-2">
+                  <div className="stat-desc mt-2">{formatPrice(currentPrice)}</div>
+                  <div><PercentageBadge percentageDiff={percentageDiff} /></div>
                 </div>
               </div>
             </div>

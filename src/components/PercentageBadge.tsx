@@ -3,9 +3,9 @@ import React from "react";
 function PercentageBadge({ percentageDiff }: { percentageDiff: number }) {
   const className = getPercentageColor(percentageDiff)
   return (
-    <span className={`badge text-xs text-white ${className}`}>
+    <div className={`badge text-xs text-white ${className}`}>
       {percentageDiff}%
-    </span>
+    </div>
   );
 }
 
