@@ -8,7 +8,7 @@ import Link from "next/link";
 
 export default async function LiveProductsPage() {
   const products = await getProducts();
-  const isLive = true;
+  const isLive = false;
   return (
     <div className="grid w-full grid-cols-4 gap-2 md:grid-cols-8">
       {products.map(async (product) => {
@@ -16,14 +16,27 @@ export default async function LiveProductsPage() {
           ? await getCurrentPrice(product.name, product.price)
           : product.price;
 
-        const percentageDiff = percentageDifference(
           
-          currentPrice,product.price
+
+
+        const percentageDiff = percentageDifference(
+          currentPrice,
+          product.price
         );
         return (
           <>
             <div className="stats shadow" key={product.id}>
               <div className="stat">
+                <Link
+                  href={`https://trading.hellostake.com/us-equity/${product.name}`}
+                  target="_blank"
+                  className="hidden md:block"
+                >
+                  <div className="relative top-0 w-5 rounded-full bg-green-300 text-center">
+                    s
+                  </div>
+                </Link>
+
                 <div className="stat-title mb-2 text-xs">
                   {formatPrice(product.price)}
                 </div>
