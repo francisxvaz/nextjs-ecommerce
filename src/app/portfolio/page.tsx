@@ -4,7 +4,7 @@ import Portfolio from "./Portfolio";
 import { Prisma, Product } from "@prisma/client";
 
 export type PortfolioItemProduct = Prisma.PortfolioItemGetPayload<{
-  include: { product: true };
+  include: { product: false };
 }>;
 
 export type PortfolioWithItems = Prisma.PortfolioGetPayload<{
@@ -15,6 +15,7 @@ export default async function PortfoliosPage() {
   let portfolios: PortfolioWithItems[] | null = null;
 
   portfolios = await prisma.portfolio.findMany({
+
     include: { portfolioItems: { include: { product: true } } },
   });
 
