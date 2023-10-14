@@ -3,6 +3,7 @@ import Link from "next/link";
 import PriceTag from "./PriceTag";
 import Image from "next/image";
 import FinanceSites from "./FinanceSites";
+import PercentageBadge from "./PercentageBadge";
 
 interface ProductCardProps {
   product: Product;
@@ -33,8 +34,8 @@ export default function ProductCard({ product }: ProductCardProps) {
           <h2 className="card-title">{product.name}</h2>
           <PriceTag price={product.price} />
         </div>
-        
-        {isNew && <div className="badge badge-secondary">NEW</div>}
+        <PercentageBadge percentageDiff={product.percentageChange!} />
+        {/* {isNew && <div className="badge badge-secondary">{product.percentageChange?.toFixed(2)}</div>} */}
         <p>{product.description}</p>
         <FinanceSites name={product.name} />
       </div>
