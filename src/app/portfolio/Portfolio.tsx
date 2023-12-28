@@ -12,9 +12,7 @@ function percentageDifference(
   currentPrice: number
 ): React.ReactNode {
   const isNegative = buyPrice - currentPrice < 0;
-  const difference = Math.abs(buyPrice - currentPrice);
-  const average = (buyPrice + currentPrice) / 2;
-  const percentageDiff = ((difference / average) * 100).toFixed(2); // Round to 2 decimal places
+  const percentageDiff = ((currentPrice - buyPrice / buyPrice) * 100).toFixed(2); // Round to 2 decimal places
   const className = isNegative ? "bg-green-400" : "bg-red-400";
 
   return (
