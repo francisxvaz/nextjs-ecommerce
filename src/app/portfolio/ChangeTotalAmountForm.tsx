@@ -8,7 +8,7 @@ function ChangeTotalAmountForm({
 }: {
   portfolio: PortfolioWithItems;
 }) {
-  const [totalAmount, settotalAmount] = useState(90000);
+  const [totalAmount, settotalAmount] = useState(100000);
   const divideAmountEqually = totalAmount / portfolio.portfolioItems.length;
   let totalAmountNow = 0;
   return (
