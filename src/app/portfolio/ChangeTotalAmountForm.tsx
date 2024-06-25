@@ -11,6 +11,14 @@ function ChangeTotalAmountForm({
   const [totalAmount, settotalAmount] = useState(100000);
   const divideAmountEqually = totalAmount / portfolio.portfolioItems.length;
   let totalAmountNow = 0;
+
+  
+  const handleWiseClick = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>, formattedPrice: string | number | boolean) => {
+    e.preventDefault(); // Prevent the default link behavior
+    const url = `https://wise.com/au/currency-converter/usd-to-aud-rate?amount=${encodeURIComponent(formattedPrice)}`;
+    window.open(url, '_blank');
+  };
+
   return (
     <div className="flex flex-col py-4">
       <div className="stats shadow">
@@ -29,10 +37,9 @@ function ChangeTotalAmountForm({
             <div></div>
             {formatPriceRounded(Math.round(divideAmountEqually), false)} /stock
           </div>
-          
         </div>
       </div>
-      
+
       <div></div>
 
       {portfolio.portfolioItems.map((item) => {
@@ -57,7 +64,9 @@ function ChangeTotalAmountForm({
                       />
                     </figure>
                   </div>
-                  <div className="stat-value">{formatPriceRounded(amountNow)}</div>
+                  <div className="stat-value">
+                    {formatPriceRounded(amountNow)}
+                  </div>
                 </div>
                 <div className="stat-desc">
                   quantity : {sharesThatCanBeBought}
@@ -67,7 +76,9 @@ function ChangeTotalAmountForm({
           </>
         );
       })}
-      <div>Total Amount : {formatPrice(totalAmountNow)}</div>
+      <a href="#" onClick={(e) => handleWiseClick(e, totalAmountNow)}>
+        <div>Total Amount : {formatPrice(totalAmountNow)}</div>
+      </a>
     </div>
   );
 }
