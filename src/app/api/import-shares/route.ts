@@ -2,52 +2,60 @@ import { NextRequest, NextResponse } from 'next/server';
 import { PrismaClient } from "@prisma/client";
 import data from "../.././../../data/latest-shares.json";
 
-const prisma = new PrismaClient();
+interface ShareData {
+  name: string;
+  price: string;
+  percentageChange: string;
+}
 
-type ProductType = {
+interface ProductType {
   name: string;
   price: number;
   percentageChange: number;
   imageUrl: string;
   description: string;
-};
+}
 
-async function addProducts(product: ProductType) {
-  const { name, price, imageUrl, percentageChange, description } = product;
-  await prisma.product.create({
-    data: {
-      name,
-      price,
-      imageUrl,
-      percentageChange,
-      description,
-    },
-  });
+// Create a single Prisma client instance
+let prismaInstance: PrismaClient | undefined;
+
+function getPrismaInstance() {
+  if (!prismaInstance) {
+    prismaInstance = new PrismaClient();
+  }
+  return prismaInstance;
+}
+
+function createProductFromShare(share: ShareData): ProductType {
+  return {
+    name: share.name,
+    price: Math.round(Number(share.price) * 100), // Ensure integer for price in cents
+    percentageChange: Number(share.percentageChange),
+    description: share.name,
+    imageUrl: `https://raw.githubusercontent.com/francisxvaz/nextjs-ecommerce/c1300ded38bb29139706bbb2c95d9d9d0b7b0471/public/logos/${share.name}.svg`,
+  };
+}
+
+async function addProduct(product: ProductType): Promise<void> {
+  const prisma = getPrismaInstance();
+  await prisma.product.create({ data: product });
+}
+
+async function addProducts(products: ProductType[]): Promise<void> {
+  const prisma = getPrismaInstance();
+  await prisma.product.createMany({ data: products });
 }
 
 export async function GET(req: NextRequest) {
   try {
-    await Promise.all(data.map(async (share) => {
-      const name = share.name;
-      const price = Number(share.price) * 100;
-      const percentageChange = Number(share.percentageChange);
-      const description = share.name;
-      const imageUrl = `https://raw.githubusercontent.com/francisxvaz/nextjs-ecommerce/c1300ded38bb29139706bbb2c95d9d9d0b7b0471/public/logos/${name}.svg`;
+    const products = data.map(createProductFromShare);
 
-      const product: ProductType = {
-        name,
-        price,
-        percentageChange,
-        description,
-        imageUrl,
-      };
+    // Use createMany for better performance
+    await addProducts(products);
 
-      await addProducts(product);
-    }));
-
-    return NextResponse.json({ message: "Data updated successfully" }, { status: 200 });
+    return NextResponse.json({ message: "Data updated successfully", count: products.length }, { status: 200 });
   } catch (error) {
-    console.error("Error updating data on Mongo:", error);
+    console.error("Error updating data in database:", error);
     return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
 }
