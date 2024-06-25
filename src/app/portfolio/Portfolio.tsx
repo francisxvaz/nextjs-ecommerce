@@ -11,13 +11,14 @@ function percentageDifference(
   buyPrice: number,
   currentPrice: number
 ): React.ReactNode {
-  const isNegative = buyPrice - currentPrice < 0;
-  const percentageDiff = ((currentPrice - buyPrice / buyPrice) * 100).toFixed(2); // Round to 2 decimal places
-  const className = isNegative ? "bg-green-400" : "bg-red-400";
+  const difference = currentPrice - buyPrice;
+  const isPositive = difference >= 0;
+  const percentageDiff = ((difference / buyPrice) * 100).toFixed(2);
+  const className = isPositive ? "bg-green-400" : "bg-red-400";
 
   return (
     <span className={`badge text-xs text-white ${className}`}>
-      {percentageDiff}%
+      {isPositive ? "+" : ""}{percentageDiff}%
     </span>
   );
 }
