@@ -9,14 +9,13 @@ function ChangeTotalAmountForm({
   portfolio: PortfolioWithItems;
 }) {
   const [totalAmount, settotalAmount] = useState(100000);
-  const [totalAmountNow, settotalAmountNow] = useState(0);
   const divideAmountEqually = totalAmount / portfolio.portfolioItems.length;
+  let totalAmountNow = 0;
+
   
-  let difference = Math.abs(totalAmountNow - totalAmount);
-  
-  const handleWiseClick = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>, formattedPrice: number) => {
+  const handleWiseClick = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>, formattedPrice: number ) => {
     e.preventDefault(); // Prevent the default link behavior
-    const url = `https://wise.com/au/currency-converter/usd-to-aud-rate?amount=${encodeURIComponent(difference/100)}`;
+    const url = `https://wise.com/au/currency-converter/usd-to-aud-rate?amount=${encodeURIComponent(formattedPrice/100)}`;
     window.open(url, '_blank');
   };
 
@@ -48,7 +47,7 @@ function ChangeTotalAmountForm({
           divideAmountEqually / (item.price / 100)
         );
         const amountNow = sharesThatCanBeBought * item.product.price;
-        settotalAmountNow(totalAmountNow + amountNow);
+        totalAmountNow += amountNow;
         return (
           <>
             <div className="stats my-2 shadow">
