@@ -15,7 +15,7 @@ function ChangeTotalAmountForm({
   
   const handleWiseClick = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>, formattedPrice: number ) => {
     e.preventDefault(); // Prevent the default link behavior
-    let t = formattedPrice - totalAmount;
+    let t = formattedPrice - (totalAmount*100);
     const url = `https://wise.com/au/currency-converter/usd-to-aud-rate?amount=${encodeURIComponent(t/100)}`;
     window.open(url, '_blank');
   };
